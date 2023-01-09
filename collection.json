@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "d6ffd6df-8f9d-47bc-806e-1a9721239404",
+		"name": "vivekgurjar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25179190"
+	},
+	"item": [
+		{
+			"name": "neksu get user",
+			"item": [
+				{
+					"name": "get user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verify Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string active\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"active\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"url value\", function () {\r",
+									"     pm.expect(pm.environment.get(\"url\")).to.equal(\"https://gorest.co.in/\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"verify email\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).to.eql(\"ramkk@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}public/v2/users/32789",
+							"host": [
+								"{{url}}public"
+							],
+							"path": [
+								"v2",
+								"users",
+								"32789"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vivek create user",
+			"item": [
+				{
+					"name": "cretae user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var random=Math.random().toString(36).substring(2)\r",
+									"   var email= \"ram\"+random+\"@gmail.com\";\r",
+									"\r",
+									"pm.environment.set(\"emailadd\",email );"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verify email\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"emailadd\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"email\":\"{{emailadd}}\",\r\n\"name\":\"bheem\",\r\n\"gender\":\"male\",\r\n\"status\":\"active\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}public/v2/users",
+							"host": [
+								"{{url}}public"
+							],
+							"path": [
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bheem update user",
+			"item": [
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"email\":\"ramkk@gmail.com\",\r\n\"name\":\"cbvgfjuiuikgfh\",\r\n\"gender\":\"male\",\r\n\"status\":\"active\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}public/v2/users/32789",
+							"host": [
+								"{{url}}public"
+							],
+							"path": [
+								"v2",
+								"users",
+								"32789"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "basic auth",
+			"item": [
+				{
+					"name": "basic auth",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://the-internet.herokuapp.com/basic_auth",
+							"protocol": "https",
+							"host": [
+								"the-internet",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"basic_auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "coop",
+			"item": [
+				{
+					"name": "coopapi",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "coop api",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "9144aa436474da4d06fb0a922bd4453a",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://coop.apps.symfonycasts.com/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "cooptoken",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://coop.apps.symfonycasts.com/api/4189/chickens-feed",
+							"protocol": "http",
+							"host": [
+								"coop",
+								"apps",
+								"symfonycasts",
+								"com"
+							],
+							"path": [
+								"api",
+								"4189",
+								"chickens-feed"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "restful booker",
+			"item": [
+				{
+					"name": "restful",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"password123\"\r\n}"
+						},
+						"url": {
+							"raw": "https://restful-booker.herokuapp.com/auth",
+							"protocol": "https",
+							"host": [
+								"restful-booker",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "8185fe6a9f18e2f44909b89382615aaa3a6f53e0df2f0646c7d68eafa44476c5",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
